@@ -9,10 +9,9 @@ from mpl_toolkits.mplot3d import Axes3D
 # Define the multivariate Gaussian PDF function
 def multivariate_gaussian(x, μ, Σ):
 	Զπ = 2*np.pi
-
-	n = len(μ)  # Dimensionality
 	ӏΣӏ = np.linalg.det(Σ)  
 	Σˉᣳ = np.linalg.inv(Σ)
+	n = len(μ)  # Dimensionality
 	
 	# Normalization constant
 	s = 1 / (Զπ**(n / 2) * ӏΣӏ**(1/2))
