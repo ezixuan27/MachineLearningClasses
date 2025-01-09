@@ -23,7 +23,7 @@ def multivariate_gaussian(x, μ, Σ):
 	pdf = s * np.exp(exponent)
 	return pdf
 
-# Define the μ vector and Σariance matrix
+# Define the μ vector and Covariance matrix
 μ = np.array([0, 0])  # Mean vector [mu_x, mu_y]
 Σ = np.array([[1, 0.5], [0.5, 1]])  # Covariance matrix
 
