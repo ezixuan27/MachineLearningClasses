@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
-
 # Define the multivariate Gaussian PDF function
 def multivariate_gaussian(x, μ, Σ):
 	Զπ = 2*np.pi
