@@ -29,7 +29,7 @@ def multivariate_gaussian(x, μ, Σ):
 # Create a grid of points in 2D space
 x = np.linspace(-5, 5, 100)
 y = np.linspace(-5, 5, 100)
-X, Y = np.meshgrid(x, y)
+Y, X = np.meshgrid(x, y)
 pos = np.dstack((X, Y))  # Combine X and Y into a 2D grid
 
 # Compute the multivariate Gaussian PDF at each point on the grid
