@@ -11,23 +11,23 @@ mpl.rcParams['savefig.directory'] = '/home/chieh/code/MachineLearningClasses/ML_
 # Define the means and covariance matrices
 mean = np.array([0, 0])
 
-cov1 = np.array([[0.1, 0], [0, 2]])
-cov2 = np.array([[2, 0], [0, 0.1]])
-cov3 = np.array([[0.3, 0], [0, 0.3]])
-cov4 = np.array([[2, 0], [0, 2]])
-
-
 #cov1 = np.array([[0.1, 0], [0, 2]])
 #cov2 = np.array([[2, 0], [0, 0.1]])
-#cov3 = np.array([[1, 0.9], [0.9, 1]])
-#cov4 = np.array([[1, -0.9], [-0.9, 1]])
+#cov3 = np.array([[0.3, 0], [0, 0.3]])
+#cov4 = np.array([[2, 0], [0, 2]])
+
+
+cov1 = np.array([[0.1, 0], [0, 2]])
+cov2 = np.array([[2, 0], [0, 0.1]])
+cov3 = np.array([[1, 0.9], [0.9, 1]])
+cov4 = np.array([[1, -0.9], [-0.9, 1]])
 
 #cov1 = np.array([[1, 0.9], [0.9, 1]])
 #cov2 = np.array([[0.05, 0], [0, 4]])
 #cov3 = np.array([[1, 0], [0, 1]])
 
 # Create a grid of points
-x, y = np.mgrid[-5:5:.1, -5:5:.1]
+y, x = np.mgrid[-5:5:.1, -5:5:.1]
 pos = np.dstack((x, y))
 
 # Generate the Gaussian distributions
@@ -43,8 +43,8 @@ z3 = rv3.pdf(pos)
 z4 = rv4.pdf(pos)
 
 # Create the subplots
-#fig, (ax1, ax2, ax3, ax4) = plt.subplots(1, 4, figsize=(20, 5))
-fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, figsize=(5, 20))
+fig, (ax1, ax2, ax3, ax4) = plt.subplots(1, 4, figsize=(20, 5))
+#fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, 1, figsize=(5, 20))
 
 # Plot the heat maps
 im1 = ax1.imshow(z1, extent=[-5, 5, -5, 5], origin='lower', cmap='viridis')
