@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 from scipy.stats import multivariate_normal
 from scipy.integrate import simpson
+import matplotlib as mpl
+
+mpl.rcParams['savefig.directory'] = '/home/chieh/code/MachineLearningClasses/ML_2/1_multivariate_gaussian'
 
 # Define the grid for x and y
 x = np.linspace(-7, 7, 100)
@@ -13,17 +15,17 @@ pos = np.dstack((x, y))  # Stack x and y into a (100, 100, 2) array
 
 # Define the parameters for 4 Gaussians
 means = [
-    np.array([0, 0]),  # Mean of Gaussian 1
-    np.array([2, 2]),    # Mean of Gaussian 2
-    np.array([-1.5, 1]),   # Mean of Gaussian 3
-    np.array([1, -2])    # Mean of Gaussian 4
+    np.array([0, 0]),
+    np.array([2, 2]), 
+    np.array([-1.5, 1]),
+    np.array([1, -2])  
 ]
 
 covariances = [
-    np.array([[2, 0], [0, 3]]),  # Covariance of Gaussian 1
-    np.array([[2, 0], [0, 2]]),  # Covariance of Gaussian 2
-    np.array([[1, 0], [0, 1]]),  # Covariance of Gaussian 3
-    np.array([[1, 0], [0, 1]])   # Covariance of Gaussian 4
+    np.array([[2, 0], [0, 3]]),
+    np.array([[2, 0], [0, 2]]),
+    np.array([[1, 0], [0, 1]]),
+    np.array([[1, 0], [0, 1]]) 
 ]
 
 weights = [0.25, 0.25, 0.25, 0.25]  # Equal weights for each Gaussian

@@ -4,6 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import multivariate_normal
 from mpl_toolkits.mplot3d import Axes3D
+import matplotlib as mpl
+
+mpl.rcParams['savefig.directory'] = '/home/chieh/code/MachineLearningClasses/ML_2/1_multivariate_gaussian'
 
 # Define the means and covariance matrices
 mean1 = np.array([0, 0])  # Mean of the first Gaussian

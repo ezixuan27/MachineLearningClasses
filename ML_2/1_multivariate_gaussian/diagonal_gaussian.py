@@ -31,13 +31,12 @@ def diagonal_gaussian(x, μ, σ):
 x = np.linspace(-5, 5, 100)
 y = np.linspace(-5, 5, 100)
 Y, X = np.meshgrid(x, y)
-pos = np.dstack((X, Y))  # Combine X and Y into a 2D grid
+
 
 # Compute the multivariate Gaussian PDF at each point on the grid
 Z = np.zeros_like(X)
 for i in range(X.shape[0]):
 	for j in range(X.shape[1]):
-		#Z[i, j] = multivariate_gaussian(np.array([X[i, j], Y[i, j]]), μ, Σ)
 		Z[i, j] = diagonal_gaussian(np.array([X[i, j], Y[i, j]]), μ, σ)
 
 # Plot the 3D surface
