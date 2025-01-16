@@ -15,7 +15,7 @@ y = rate * np.exp(-rate * x)  # PDF: λe^(-λx)
 
 # Create the plot
 plt.figure(figsize=(10, 6))
-plt.plot(x, y, 'r-', lw=2, label=f'Exponential(λ={rate:.2f})')
+plt.plot(x, y, 'r-', lw=2, label=f'Exponential(θ={rate:.2f})')
 
 # Fill under the curve
 plt.fill_between(x, y, alpha=0.3, color='red')
@@ -25,7 +25,7 @@ plt.axvline(x=0.05, color='black', linestyle='--', label='Mean = 0.05')
 
 # Customize the plot
 plt.title(f'Exponential Distribution (mean = 0.05)')
-plt.xlabel('x')
+plt.xlabel('(i) Interest level')
 plt.ylabel('Probability Density')
 plt.grid(True, alpha=0.3)
 plt.legend()
@@ -34,5 +34,6 @@ plt.legend()
 plt.xlim(0, 1)
 plt.ylim(0, max(y) * 1.1)
 
+plt.savefig('exponential.png')
 plt.tight_layout()
 plt.show()
