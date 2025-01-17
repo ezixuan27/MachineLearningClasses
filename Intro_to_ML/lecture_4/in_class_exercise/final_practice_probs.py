@@ -1,16 +1,20 @@
 #!/usr/bin/env python
 
 import autograd.numpy as np
+from autograd.numpy import exp
+from autograd.numpy.linalg import inv
 from autograd import grad
+
 
 y = np.array([[2], [5]])
 ӏ = np.array([[1], [1]])
 x = np.random.random((2, 1))
 w = np.array([[7], [8]])
 
+
 #	Problem 1
 def f(x,y,ӏ):
-    return np.dot(np.transpose(y), x) + np.dot(np.transpose(x), ӏ)
+    return y.T@x + x.T@ӏ
 
 grad_foo = grad(f)
 
@@ -25,10 +29,10 @@ print("Theoretical: \n", np.array([[3], [6]]))
 A = np.array([	[2, 1], 
 				[1, 1]])
 def f(x, A):
-    return np.dot(np.dot(np.transpose(x), A), x)
+	return x.T@A@x
 
 def ߜf(x, A):
-	return 2*A.dot(x)
+	return 2*A@x
 
 
 grad_foo = grad(f)
@@ -42,10 +46,10 @@ print("Theoretical: \n", ߜf(x, A))
 A = np.array([	[4, 0], 
 				[1, 1]])
 def f(x, A):
-    return np.exp(np.dot(np.dot(np.transpose(x), A), x))
+    return exp(x.T@A@x)
 
 def ߜf(x, A):
-	v = (A + np.transpose(A)).dot(x)
+	v = (A + A.T)@x
 	return f(x,A)*v
 
 
@@ -60,10 +64,10 @@ print("Theoretical: \n", ߜf(x, A))
 A = np.array([	[4, 0], 
 				[1, 1]])
 def eˉᵂˣ(w,x):
-	return np.exp(np.dot(np.transpose(w), x))
+	return exp(w.T@x)
 
 def f(x, w):
-    return np.linalg.inv(1 + eˉᵂˣ(w,x))
+    return inv(1 + eˉᵂˣ(w,x))
 
 def ߜf(x, w):
 	return (eˉᵂˣ(w,x)/(1 + eˉᵂˣ(w,x))**2)*w
