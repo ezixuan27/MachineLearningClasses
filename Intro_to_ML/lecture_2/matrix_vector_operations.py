@@ -18,14 +18,17 @@ print(A)
 
 # outer product $u v^{\top}$
 print(u.dot(v.T))
+print(u @ v.T)
 
 
 # inner/dot product $v^{\top} v$
 print(v.T.dot(v))
+print(v.T @ v)
 
 
 # $x^{\top} A x$
 print(v.T.dot(A).dot(v))
+print(v.T @ A @v)
 
 
 # hadamard
