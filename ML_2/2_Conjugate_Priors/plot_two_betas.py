@@ -9,12 +9,15 @@ from scipy.integrate import quad
 def B(α, β):
     return Γ(α) * Γ(β) / Γ(α + β)
 
+
 # probability p(ĩ) for β distribution
 def pᵝ(ĩ, α, β):
     return (ĩ ** (α - 1) * (1 - ĩ) ** (β - 1)) / B(α, β)
 
+
 # Generate ĩ values
 ĩ = np.linspace(0, 1, 1000)
+
 
 # Parameters for the two Beta distributions
 α1, β1 = 2, 19
@@ -28,6 +31,8 @@ y2 = pᵝ(ĩ, α2, β2)
 prob1, _ = quad(pᵝ, 0.1, 1, args=(α1, β1))
 prob2, _ = quad(pᵝ, 0.1, 1, args=(α2, β2))
 
+
+
 # Plot the Beta distributions
 plt.figure(figsize=(12, 6))
 
@@ -40,6 +45,8 @@ plt.xlabel('(ĩ) Interest Level')
 plt.ylabel('Probability Density')
 plt.legend()
 plt.grid(True)
+
+
 
 # Plot for α = 1, β = 20
 plt.subplot(1, 2, 2)
