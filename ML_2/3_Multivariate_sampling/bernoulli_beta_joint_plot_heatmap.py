@@ -37,7 +37,7 @@ Z = np.vstack([Z1, Z0])  # t = 1 on top, t = 0 at the bottom
 plt.figure(figsize=(10, 4))
 
 # Use extent to center t = 0 and t = 1 in their respective regions
-plt.imshow(Z, extent=[0, 1, 0.25, 1.75], aspect='auto', cmap='viridis', origin='lower')
+plt.imshow(Z, extent=[0, 1, 0.25, 1.75], aspect='auto', cmap='viridis', origin='upper')
 
 # Add color bar
 cbar = plt.colorbar()
