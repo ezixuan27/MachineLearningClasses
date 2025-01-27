@@ -30,6 +30,7 @@ y2 = pᵝ(ĩ, α2, β2)
 # Calculate the probability of the Beta distribution being higher than 0.1
 prob1, _ = quad(pᵝ, 0.1, 1, args=(α1, β1))
 prob2, _ = quad(pᵝ, 0.1, 1, args=(α2, β2))
+print('Probability 1: %.3f, Probability 2: %.3f'%(prob1, prob2))
 
 
 
