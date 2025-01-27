@@ -17,7 +17,6 @@ n_bins = 50     # Number of bins for p values
 p_values = np.random.beta(alpha, beta, n_samples)
 bernoulli_samples = np.random.binomial(1, p_values)
 
-import pdb; pdb.set_trace()
 
 # Step 2: Bin the p values and count frequencies for t=0 and t=1
 p_bins = np.linspace(0, 1, n_bins + 1)  # Bin edges for p
