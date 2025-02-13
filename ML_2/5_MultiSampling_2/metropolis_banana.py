@@ -5,25 +5,28 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 def banana_distribution(x, y):
-    return np.exp(-((x**2 + y**2 - 1)**2 / 0.3) - ((y - x**2)**2 / 0.3))
+    return np.exp(-((x**2 + y**2 - 1)**2 / 0.5) - ((y - x**2)**2 / 0.5))
 
-def metropolis_sampling(n_samples=30000, step_size=0.1):
+def metropolis_sampling(n=100000, σ=0.5):
     samples = []
     x, y = 0.0, 0.0  # Start from the origin
-    
-    for _ in range(n_samples):
-        x_new, y_new = np.random.normal(x, step_size), np.random.normal(y, step_size)
+    m = int(n*0.2) # discard amount
+
+    while len(samples) < n*1.2:
+        x_new, y_new = np.random.normal(x, σ), np.random.normal(y, σ)
         acceptance_ratio = banana_distribution(x_new, y_new) / banana_distribution(x, y)
         
         if np.random.rand() < acceptance_ratio:
             x, y = x_new, y_new
         
         samples.append([x, y])
-    
+
+    samples = samples[m:] # Discard 20% of the initial samples
     return np.array(samples)
 
 # Generate samples
 samples = metropolis_sampling()
+print(len(samples))
 
 # Create 3D histogram
 fig = plt.figure(figsize=(10, 7))
