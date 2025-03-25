@@ -10,7 +10,7 @@ class rotating_point(space):
 		space.__init__(self)
 		self.v = self.create_vector((1,1,1))
 
-		self.taskMgr.add(self.rotate_z, "Rotate")
+		self.taskMgr.add(self.rotate_x, "Rotate")
 
 	def rotate_x(self, task):
 		v = self.v
