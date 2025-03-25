@@ -21,9 +21,15 @@ class rotating_point(space):
         self.accept("r", self.start_recording)
 
     def create_rotation_matrix(self, θ):
-        return np.array([  [1, 0, 0],
-                              [0, cos(θ), -sin(θ)],
-                              [0, sin(θ), cos(θ)]])
+		# z
+        #return np.array([	[cos(θ), -sin(θ), 0],
+		#				[sin(θ),  cos(θ), 0],
+		#				[0,              0,             1]])
+
+		# x
+		#return np.array([  [1, 0, 0],
+        #                      [0, cos(θ), -sin(θ)],
+        #                      [0, sin(θ), cos(θ)]])
 
     def rotate_x(self, task):
         new_loc = dot(self.R, self.v.pos)
@@ -48,17 +54,6 @@ class rotating_point(space):
                     self.stop_recording()
                     self.save_gif()
             return Task.cont
-
-#    def record_screen(self, task):
-#        if self.recording:
-#            self.win.saveScreenshot("screenshot.png")
-#            if not hasattr(self, "frames"):
-#                self.frames = []
-#            self.frames.append(imageio.imread("screenshot.png"))
-#            if len(self.frames) >= 30:  # 10 seconds at 3 frames per second
-#                self.stop_recording()
-#                self.save_gif()
-#            return Task.cont
 
     def stop_recording(self):
         self.recording = False
