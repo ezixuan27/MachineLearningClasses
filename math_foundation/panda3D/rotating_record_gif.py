@@ -21,6 +21,11 @@ class rotating_point(space):
         self.accept("r", self.start_recording)
 
     def create_rotation_matrix(self, θ):
+		# y
+        return np.array([	[cos(θ),  0, sin(θ)], 
+		                    [0,       1, 0], 
+							[-sin(θ), 0, cos(θ)] ])
+
 		# z
         #return np.array([	[cos(θ), -sin(θ), 0],
 		#				[sin(θ),  cos(θ), 0],
