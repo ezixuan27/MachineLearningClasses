@@ -2,8 +2,10 @@
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import Point3, LineSegs, NodePath, TextNode
 from panda3d.core import LVector3, LPoint3
+from panda3d.core import WindowProperties
 from direct.task import Task
 from panda3d.core import GeomVertexReader
+import imageio
 import math
 import numpy as np
 
@@ -19,6 +21,46 @@ def ensure_tuple(obj):
 		return tuple(obj.flatten())  # Convert NumPy array to a tuple
 	else:
 		raise TypeError("Input must be a tuple or a NumPy array.")
+
+
+class point_cloud():
+	def __init__(self, root, X=None, mean=[1, 1, 1], color=(0.6, 0.6, 1, 0.3)):
+		self.root = root
+		if X == None:
+			μ = np.array(mean)	
+			Σ = np.array([	[1, 0, 0.3],
+							[0, 2, 0],
+							[0.3, 0, 0.5]])
+			self.X = np.random.multivariate_normal(μ, Σ, 20)
+
+
+		self.n = self.X.shape[0]
+		self.draw_points(self.X)
+
+	def draw_points(self, new_points):
+		self.points = []
+		for x in new_points:
+			point = self.root.loader.loadModel("models/misc/sphere")  # Use "models/misc/sphere" for a pure sphere
+			point.reparentTo(self.root.render)
+			point.setScale(0.07)
+			point.setColor(0.6, 0.6, 1, 0.3)
+			point.setPos(x[0], x[1], x[2])
+			self.points.append(point)
+
+	def pos(self):
+		return self.X
+
+
+	def delete(self):
+		for point in self.points:
+			point.removeNode()
+
+	def redraw(self, pos):
+		self.delete()
+		self.draw_points(pos)
+
+
+
 
 class vector():
 	def __init__(self, render, pos, start=(0,0,0), color=(0.7, 0.7, 0, 1)):
@@ -76,6 +118,7 @@ class vector():
 class space(ShowBase):
 	def __init__(self):
 		ShowBase.__init__(self)
+		self.is_fullscreen = False
 
 		# Disable default camera controls
 		self.disableMouse()
@@ -96,9 +139,12 @@ class space(ShowBase):
 		self.cam_phi = math.pi / 4
 	
 
+		self.recording = False
 		# Mouse movement tracking
 		self.accept("mouse1", self.start_mouse_tracking)
 		self.accept("mouse1-up", self.stop_mouse_tracking)
+		self.accept("f", self.toggle_fullscreen)
+		self.accept("r", self.start_recording)
 		self.taskMgr.add(self.track_mouse, "TrackMouseTask")
 		self.mouse_tracking = False
 		self.last_mouse_pos = (0, 0)
@@ -106,6 +152,31 @@ class space(ShowBase):
 		# Mouse scroll for zooming
 		self.accept("wheel_up", self.zoom_in)
 		self.accept("wheel_down", self.zoom_out)
+
+	def start_recording(self):
+		if not self.recording:
+			self.recording = True
+			self.record_task = self.taskMgr.add(self.record_screen, "RecordScreen")
+			print("Recording started. Press 'r' to stop.")
+
+	def stop_recording(self):
+		self.recording = False
+		self.taskMgr.remove(self.record_task)
+		print("Recording stopped.")
+
+	def record_screen(self, task):
+		if self.recording:
+			frame_count = task.frame
+			if frame_count % 10 == 0:  # Record every 5th frame
+				self.win.saveScreenshot("screenshot.png")
+				if not hasattr(self, "frames"):
+					self.frames = []
+				self.frames.append(imageio.imread("screenshot.png"))
+				if len(self.frames) >= 100:  # Adjusted to account for every 5th frame
+					self.stop_recording()
+					self.save_gif()
+			return Task.cont
+
 
 	def create_vector(self, pos, start=(0,0,0), color=(0.7, 0.7, 0, 1)):
 		return vector(self.render, pos, start=(0,0,0), color=(0.7, 0.7, 0, 1))
@@ -201,4 +272,15 @@ class space(ShowBase):
 	def zoom_out(self):
 		self.cam_radius += 1
 
+	def toggle_fullscreen(self):
+		"""Toggle between fullscreen and windowed mode."""
+		self.is_fullscreen = not self.is_fullscreen  # Flip state
+		
+		props = WindowProperties()
+		props.setFullscreen(self.is_fullscreen)
+		base.win.requestProperties(props)  # Apply new properties
+
+	def save_gif(self):
+		imageio.mimsave("record.gif", self.frames, fps=15)
+		print("GIF saved.")
 

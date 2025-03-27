@@ -12,10 +12,8 @@ class load_house(space):
     def __init__(self):
         space.__init__(self)
         self.house = self.loader.loadModel("house_mesh2.glb")
-        #self.house.setR(90)
-        #self.house.setH(90)
-        #self.house.setP(90)
         self.house.reparentTo(self.render)
+        self.house.setRenderModeWireframe()
 
 
         # Add Ambient Light (fills the scene with a general light)
