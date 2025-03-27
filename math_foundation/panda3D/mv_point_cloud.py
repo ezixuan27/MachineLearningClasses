@@ -1,11 +1,5 @@
 #!/usr/bin/env python
 from space import *
-from numpy import cos, sin
-from numpy import pi as π
-from panda3d.core import LineSegs, NodePath, PointLight
-from panda3d.core import Material, TransparencyAttrib
-from direct.gui.OnscreenImage import OnscreenImage
-import math
 
 class cloud_of_points(space):
 	def __init__(self):
