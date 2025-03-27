@@ -17,6 +17,8 @@ def ensure_tuple(obj):
 	"""Check if the input is a tuple. If it's a NumPy array, convert it to a tuple."""
 	if isinstance(obj, tuple):
 		return obj  # Already a tuple, return as is
+	elif isinstance(obj, list):
+		return tuple(obj)
 	elif isinstance(obj, np.ndarray):
 		return tuple(obj.flatten())  # Convert NumPy array to a tuple
 	else:
@@ -64,11 +66,62 @@ class point_cloud():
 
 
 
+class point():
+	def __init__(self, root, x):
+		self.x = ensure_tuple(x)
+		self.root = root
+		self.draw_point(x)
+
+	def draw_point(self, x):
+		self.point = self.root.loader.loadModel("models/misc/sphere")  # Use "models/misc/sphere" for a pure sphere
+		self.point.reparentTo(self.root.render)
+		self.point.setScale(0.07)
+		self.point.setColor(0.6, 0.6, 1, 0.3)
+		self.point.setPos(x[0], x[1], x[2])
+
+		self.x = tuple_vector_to_numpy(x)
+
+	def pos(self):
+		return self.x
+
+	def delete(self):
+		self.point.removeNode()
+
+	def redraw(self, new_pos):
+		self.delete()
+		self.draw_point(new_pos)
+
+
+
+	def __rmatmul__(self, other):
+		"""Implements other @ self"""
+		if isinstance(other, np.ndarray):
+			return other @ self.pos  # Right multiplication
+		else:
+			raise TypeError(f"Unsupported type {type(other)} for matrix multiplication")
+
+	def __matmul__(self, other):
+		"""Implements self @ other"""
+		print(other)
+		print(self.pos)
+		print('\n\n\n')
+
+		if isinstance(other, np.ndarray):
+			return self.pos.T @ other  # Matrix multiplication
+		elif isinstance(other, np.ndarray):
+			return self.pos.T @ self.pos  # MyMatrix @ MyMatrix
+		else:
+			raise TypeError(f"Unsupported type {type(other)} for matrix multiplication")
+
+
+
+
+
 class vector():
-	def __init__(self, render, pos, start=(0,0,0), color=(0.7, 0.7, 0, 1)):
-		pos = ensure_tuple(pos)
+	def __init__(self, render, X, start=(0,0,0), color=(0.7, 0.7, 0, 1)):
+		self.X = ensure_tuple(X)
 		self.render = render
-		self.draw_line(pos, start, color)
+		self.draw_line(X, start, color)
 
 	def draw_line(self, pos, start=(0,0,0), color=(0.7, 0.7, 0, 1)):
 		self.lines = LineSegs()
