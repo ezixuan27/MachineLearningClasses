@@ -47,6 +47,8 @@ class point_cloud():
 			point.setPos(x[0], x[1], x[2])
 			self.points.append(point)
 
+		self.X = new_points
+
 	def pos(self):
 		return self.X
 
