@@ -18,8 +18,8 @@ class rotating_point(space):
 		θ = π/256
 
 		R = np.array([	[cos(θ), -sin(θ), 0],
-						[sin(θ),  cos(θ), 0],
-						[0,              0,             1]])
+				[sin(θ),  cos(θ), 0],
+				[0,       0,      1]])
 		new_loc = R @ v.pos
 		v.redraw(new_loc)
 		return Task.cont
