@@ -9,7 +9,7 @@ class cloud_of_points(space):
 
 	def move_cloud(self):
 		X = self.cloud.pos()
-		X = X - np.array([0.2, 0, 0.2])
+		X = X - 0.2
 		self.cloud.redraw(X)
 		
 
