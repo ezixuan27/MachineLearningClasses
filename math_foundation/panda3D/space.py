@@ -27,13 +27,13 @@ def ensure_tuple(obj):
 
 
 class point_cloud():
-	def __init__(self, X=None, mean=[1, 1, 1], color=(0.6, 0.6, 1, 0.3)):
+	def __init__(self, X=None, mean=[1, 1, 1], n = 20, color=(0.6, 0.6, 1, 0.3)):
 		if X == None:
 			μ = np.array(mean)	
 			Σ = np.array([	[1, 0, 0.3],
 							[0, 2, 0],
 							[0.3, 0, 0.5]])
-			self.X = np.random.multivariate_normal(μ, Σ, 20)
+			self.X = np.random.multivariate_normal(μ, Σ, n)
 
 
 		self.n = self.X.shape[0]
