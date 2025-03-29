@@ -7,12 +7,10 @@ class point_interpolation(space):
 		space.__init__(self)
 		self.total_time_elapsed = 0
 
-		self.p = point(self, [1,1,1])
+		self.p = point([1,1,1])
 		self.start = self.p.pos()
 		self.end = np.array([[-2],[0],[1]])
 		self.direction = self.end - self.p.pos()
-		print(self.direction)
-
 		self.accept("m", self.initialize_move)
 
 	def initialize_move(self):

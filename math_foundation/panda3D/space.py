@@ -69,14 +69,14 @@ class point_cloud():
 
 
 class point():
-	def __init__(self, root, x):
+	def __init__(self, x):
 		self.x = ensure_tuple(x)
-		self.root = root
 		self.draw_point(x)
 
 	def draw_point(self, x):
-		self.point = self.root.loader.loadModel("models/misc/sphere")  # Use "models/misc/sphere" for a pure sphere
-		self.point.reparentTo(self.root.render)
+		global root
+		self.point = root.loader.loadModel("models/misc/sphere")  # Use "models/misc/sphere" for a pure sphere
+		self.point.reparentTo(root.render)
 		self.point.setScale(0.07)
 		self.point.setColor(0.6, 0.6, 1, 0.3)
 		self.point.setPos(x[0], x[1], x[2])
