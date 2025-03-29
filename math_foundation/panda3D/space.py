@@ -9,6 +9,7 @@ import imageio
 import math
 import numpy as np
 
+root = None
 
 def tuple_vector_to_numpy(tup): 
 	return np.array(tup).reshape(-1, 1)
@@ -26,8 +27,7 @@ def ensure_tuple(obj):
 
 
 class point_cloud():
-	def __init__(self, root, X=None, mean=[1, 1, 1], color=(0.6, 0.6, 1, 0.3)):
-		self.root = root
+	def __init__(self, X=None, mean=[1, 1, 1], color=(0.6, 0.6, 1, 0.3)):
 		if X == None:
 			μ = np.array(mean)	
 			Σ = np.array([	[1, 0, 0.3],
@@ -40,10 +40,12 @@ class point_cloud():
 		self.draw_points(self.X)
 
 	def draw_points(self, new_points):
+		global root
+
 		self.points = []
 		for x in new_points:
-			point = self.root.loader.loadModel("models/misc/sphere")  # Use "models/misc/sphere" for a pure sphere
-			point.reparentTo(self.root.render)
+			point = root.loader.loadModel("models/misc/sphere")  # Use "models/misc/sphere" for a pure sphere
+			point.reparentTo(root.render)
 			point.setScale(0.07)
 			point.setColor(0.6, 0.6, 1, 0.3)
 			point.setPos(x[0], x[1], x[2])
@@ -173,6 +175,8 @@ class vector():
 class space(ShowBase):
 	def __init__(self):
 		ShowBase.__init__(self)
+		global root
+		root = self
 		self.is_fullscreen = False
 
 		# Disable default camera controls
@@ -298,7 +302,7 @@ class space(ShowBase):
 		y = self.cam_radius * math.sin(self.cam_phi) * math.sin(self.cam_theta)
 		z = self.cam_radius * math.cos(self.cam_phi)
 		self.camera.setPos(x, y, z)
-		self.camera.lookAt(0, 0, 0)
+		self.camera.lookAt(0, 0, 1)
 		return Task.cont
 
 	def start_mouse_tracking(self):
