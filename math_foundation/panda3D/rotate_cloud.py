@@ -8,7 +8,7 @@ class cloud_of_points(space):
 		space.__init__(self)
 		self.state = 'shrink'
 		self.total_time_elapsed = 0 
-		self.cloud = point_cloud(mean=[4,1,1], n=30)
+		self.cloud = point_cloud(mean=[4,1,1], n=70)
 		self.taskMgr.add(self.move_points, "move_task")
 
 	def move_points(self, task):
