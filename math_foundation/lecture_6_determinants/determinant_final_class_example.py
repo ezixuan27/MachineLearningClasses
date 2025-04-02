@@ -1,15 +1,10 @@
 #!/usr/bin/env python
 
 import numpy as np
-
-def calculate_determinant_2_inverse_d(d_matrix):
-    d_inverse = np.linalg.inv(d_matrix)
-    two_inverse_d = 2 * d_inverse
-    determinant = np.linalg.det(two_inverse_d)
-    return determinant
+from numpy.linalg import inv, det
 
 # Define the matrix D
-d_matrix = np.array([
+D = np.array([
     [2, 3, 1, 0, 0, 0, 0],
     [1, 2, 1, 0, 0, 0, 0],
     [1, 1, 1, 0, 0, 0, 0],
@@ -19,6 +14,7 @@ d_matrix = np.array([
     [0, 0, 0, 0, 0, 0, 1]
 ])
 
-# Calculate and print the result
-result = calculate_determinant_2_inverse_d(d_matrix)
-print(f"The determinant of 2 * (D^-1) is: {result}")
+
+Dˉᣳ = inv(D)
+ӏDˉᣳӏ = det(2*Dˉᣳ)
+print(f"The determinant of 2 * (D^-1) is: {ӏDˉᣳӏ}")
