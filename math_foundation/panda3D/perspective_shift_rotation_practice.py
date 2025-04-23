@@ -29,7 +29,10 @@ class cloud_of_points(space):
 		self.total_time_elapsed = self.total_time_elapsed + t
 		if self.total_time_elapsed > 0.01:
 			X = self.cloud.pos() # each point is a row
-			X̂ = X @ V.T @ R.T @ V
+
+			#X̂ =    fill in here
+			#		remember the equation you saw was for X̂ᐪ , redraw requires X̂
+
 			self.cloud.redraw(X̂)
 			self.total_time_elapsed = 0
 

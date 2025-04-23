@@ -238,6 +238,26 @@ class space(ShowBase):
 			return Task.cont
 
 
+	def draw_new_basis(self, V, 
+						  length=5.0,
+						  colors=((1, 1, 0, 1),   # yellow   for v1
+								  (1, 0, 1, 1),   # magenta  for v2
+								  (0, 1, 1, 1))): # cyan	 for v3
+		
+		# Draw and label --------------------------------------------
+		vec1 = self.create_vector(V[0,:], color=colors[0], thickness=5)
+		vec2 = self.create_vector(V[1,:], color=colors[1], thickness=5)
+		vec3 = self.create_vector(V[2,:], color=colors[2], thickness=5)
+	
+		# Optional tip labels (uncomment if you want them right away)
+		self.create_axis_label("x", * (1.1 * V[0,:]), colors[0])
+		self.create_axis_label("y", * (1.1 * V[1,:]), colors[1])
+		self.create_axis_label("z", * (1.1 * V[2,:]), colors[2])
+	
+		return V
+
+
+
 	def create_vector(self, pos, start=(0,0,0), color=(0.7, 0.7, 0, 1), thickness=3):
 		return vector(self.render, pos, start=start, color=color, thickness=thickness)
 
