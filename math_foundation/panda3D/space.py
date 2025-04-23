@@ -117,12 +117,11 @@ class point():
 
 
 
-
-
 class vector():
-	def __init__(self, render, X, start=(0,0,0), color=(0.7, 0.7, 0, 1)):
+	def __init__(self, render, X, start=(0,0,0), color=(0.7, 0.7, 0, 1), thickness=3):
 		self.X = ensure_tuple(X)
 		self.render = render
+		self.thickness = thickness
 		self.draw_line(X, start, color)
 
 	def draw_line(self, pos, start=(0,0,0), color=(0.7, 0.7, 0, 1)):
@@ -131,6 +130,7 @@ class vector():
 		self.lines.setThickness(4)  # Set line thickness
 		self.lines.moveTo(*start)  # Start point
 		self.lines.drawTo(*pos)  # End point
+		self.lines.setThickness(self.thickness)
 
 		self.line_node = NodePath(self.lines.create())
 		self.line_node.reparentTo(render)
@@ -204,6 +204,7 @@ class space(ShowBase):
 		self.accept("mouse1-up", self.stop_mouse_tracking)
 		self.accept("f", self.toggle_fullscreen)
 		self.accept("r", self.start_recording)
+		self.accept("f9", self.capture_screenshot)
 		self.taskMgr.add(self.track_mouse, "TrackMouseTask")
 		self.mouse_tracking = False
 		self.last_mouse_pos = (0, 0)
@@ -231,14 +232,14 @@ class space(ShowBase):
 				if not hasattr(self, "frames"):
 					self.frames = []
 				self.frames.append(imageio.imread("screenshot.png"))
-				if len(self.frames) >= 100:  # Adjusted to account for every 5th frame
+				if len(self.frames) >= 150:  # Adjusted to account for every 5th frame
 					self.stop_recording()
 					self.save_gif()
 			return Task.cont
 
 
-	def create_vector(self, pos, start=(0,0,0), color=(0.7, 0.7, 0, 1)):
-		return vector(self.render, pos, start=(0,0,0), color=(0.7, 0.7, 0, 1))
+	def create_vector(self, pos, start=(0,0,0), color=(0.7, 0.7, 0, 1), thickness=3):
+		return vector(self.render, pos, start=start, color=color, thickness=thickness)
 
 
 	def create_grid(self, size=10, spacing=1):
@@ -343,3 +344,7 @@ class space(ShowBase):
 		imageio.mimsave("record.gif", self.frames, fps=15)
 		print("GIF saved.")
 
+	def capture_screenshot(self):
+		filename = "screenshot.png"
+		self.win.saveScreenshot(filename)
+		print(f"Screenshot saved to {filename}")
