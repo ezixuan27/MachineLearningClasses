@@ -14,8 +14,6 @@ def pretty_np_array(m, title=None, end_space=''):
 	else: m = m + end_space
 	print(m, '\n')
 
-
-
 # Original matrix A and eigenvalue matrix Λ
 A = np.array([
     [2, -2, 0, 0],
@@ -30,7 +28,6 @@ A = np.array([
 # Verify A = V Λ Vᵀ
 Λ = np.diag(λ)
 Aᣳ = V @ Λ @ V.T
-#print(Aᣳ, '\n\n')
 pretty_np_array(Aᣳ, title='Original Reconstruction A = V Λ Vᵀ')
 
 # Step 2 - Remove trivial eigenvalue (0)
