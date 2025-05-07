@@ -43,6 +43,6 @@ core_indices = np.where(λ > 0.01)[0]
 Λ̄ = np.diag(λ[core_indices])
 V̄ = V[:, core_indices]
 Aᑦ = V̄ @ Λ̄ @ V̄.T
-pretty_np_array(Ã, title='Core Reconstruction')
+pretty_np_array(Aᑦ, title='Core Reconstruction')
 
 
