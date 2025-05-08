@@ -37,12 +37,13 @@ Ṽ = V[:, non_trivial_indices]
 Ã = Ṽ @ Λ̃ @ Ṽ.T
 pretty_np_array(Ã, title='Non-trivial reconstruction : Ã = Ṽ Λ̃ Ṽᵀ')
 
-
 # Step 3 - Remove trivial and *almost* trivial (e.g., eigenvalue < 0.01)
 core_indices = np.where(λ > 0.01)[0]
 Λ̄ = np.diag(λ[core_indices])
 V̄ = V[:, core_indices]
 Aᑦ = V̄ @ Λ̄ @ V̄.T
 pretty_np_array(Aᑦ, title='Core Reconstruction')
+
+
 
 
