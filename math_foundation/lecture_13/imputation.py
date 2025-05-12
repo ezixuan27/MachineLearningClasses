@@ -4,7 +4,8 @@ import numpy as np
 from numpy.linalg import eigh
 from numpy import genfromtxt
 
-A = genfromtxt('imputation.csv', delimiter=',')
+A = genfromtxt('imputation_missing_10.csv', delimiter=',')
+#A = genfromtxt('imputation.csv', delimiter=',')
 print('A[0,0] original was 0.0736')
 A[0, 0] = 0 # setting unknow value to 0
 
