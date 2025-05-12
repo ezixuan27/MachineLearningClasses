@@ -19,12 +19,14 @@ print("Eigenvalues:", λ)
 print("Eigenvectors (columns):\n", V)
 
 # Full reconstruction
-A_full = λ[0] * np.outer(V[:, 0], V[:, 0]) + λ[1] * np.outer(V[:, 1], V[:, 1])
+v1 = V[:, 0].reshape(-1,1)	# extract eigv 1
+v2 = V[:, 1].reshape(-1,1)	# extract eigv 2
+A_full = λ[0] * v1 @ v1.T + λ[1] * v2 @ v2.T
 print("\nFull reconstruction A:")
 print(np.round(A_full, 4))
 
 # Low-rank reconstruction (setting λ2 = 0)
-A_low_rank = λ[0] * np.outer(V[:, 0], V[:, 0])
+A_low_rank = λ[0] * v1 @ v1.T
 print("\nLow-rank reconstruction A (λ2 = 0):")
 print(np.round(A_low_rank, 4))
 
