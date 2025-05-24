@@ -1,14 +1,8 @@
 #!/usr/bin/env python
 
-# %% [markdown]
 # ### Problem: Maximize Happiness
 # We want to maximize:
-# $$
-# -\frac{1}{2}x^\top Q x + c^\top x + d,
-# \quad \text{where} \quad
-# Q = \begin{bmatrix} 2 & 1 & 0 \\ 1 & 2 & 0 \\ 0 & 0 & 1 \end{bmatrix},
-# \quad c = \begin{bmatrix} 5 \\ 4 \\ 3 \end{bmatrix}
-# $$
+# $$ -\frac{1}{2}x^\top Q x + c^\top x + d, \quad \text{where} \quad Q = \begin{bmatrix} 2 & 1 & 0 \\ 1 & 2 & 0 \\ 0 & 0 & 1 \end{bmatrix}, \quad c = \begin{bmatrix} 5 \\ 4 \\ 3 \end{bmatrix} $$
 
 import numpy as np
 from scipy.optimize import minimize
