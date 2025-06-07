@@ -231,10 +231,13 @@ class space(ShowBase):
 			self.recording = True
 			self.record_task = self.taskMgr.add(self.record_screen, "RecordScreen")
 			print("Recording started. Press 'r' to stop.")
+		else:
+			self.stop_recording()
 
 	def stop_recording(self):
 		self.recording = False
 		self.taskMgr.remove(self.record_task)
+		self.save_gif()
 		print("Recording stopped.")
 
 	def record_screen(self, task):
@@ -245,7 +248,7 @@ class space(ShowBase):
 				if not hasattr(self, "frames"):
 					self.frames = []
 				self.frames.append(imageio.imread("screenshot.png"))
-				if len(self.frames) >= 100:  # Adjusted to account for every 5th frame
+				if len(self.frames) >= 150:  # Adjusted to account for every 5th frame
 					self.stop_recording()
 					self.save_gif()
 			return Task.cont
@@ -374,7 +377,7 @@ class space(ShowBase):
 		base.win.requestProperties(props)  # Apply new properties
 
 	def save_gif(self):
-		imageio.mimsave("record.gif", self.frames, fps=15)
+		imageio.mimsave("record.gif", self.frames, fps=6)
 		print("GIF saved.")
 
 	def capture_screenshot(self):
