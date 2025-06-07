@@ -4,7 +4,7 @@ from panda3d.core import Point3, LineSegs, NodePath, TextNode
 from panda3d.core import LVector3, LPoint3
 from panda3d.core import WindowProperties
 from direct.task import Task
-from panda3d.core import GeomVertexReader
+from panda3d.core import GeomVertexReader, Filename
 import imageio
 import math
 import numpy as np
@@ -214,6 +214,18 @@ class space(ShowBase):
 		self.accept("wheel_up", self.zoom_in)
 		self.accept("wheel_down", self.zoom_out)
 
+	def load_mesh(self, path):
+		mesh = self.loader.load_model(Filename.from_os_specific(path))
+		if not mesh:
+			print("Failed to load model:", model_path)
+			return None
+
+		mesh.reparentTo(self.render)
+		return mesh
+
+
+
+
 	def start_recording(self):
 		if not self.recording:
 			self.recording = True
@@ -233,7 +245,7 @@ class space(ShowBase):
 				if not hasattr(self, "frames"):
 					self.frames = []
 				self.frames.append(imageio.imread("screenshot.png"))
-				if len(self.frames) >= 150:  # Adjusted to account for every 5th frame
+				if len(self.frames) >= 100:  # Adjusted to account for every 5th frame
 					self.stop_recording()
 					self.save_gif()
 			return Task.cont
