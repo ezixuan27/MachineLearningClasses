@@ -2,6 +2,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+from numpy.linalg import inv
 
 # Gradient descent for linear regression y = wᵀx
 # X: array of shape (n, 2) where each row is [x_i, 1]
@@ -30,9 +31,8 @@ def gradient_descent(X, y, α):
 		return grad / n
 
 	J_list = []
-	for t in range(100):
+	for t in range(1000):
 		J_curr = L(w)
-		print(f"Iteration {t:3d}: J = {J_curr.flatten()[0]:.6f}")
 		J_list.append(J_curr.flatten()[0])
 		w = w - α * ߜL(w)
 
@@ -50,6 +50,13 @@ if __name__ == "__main__":
 	α = 0.1
 	w, J_list = gradient_descent(X, y, α)
 	print(f"Learned parameters: w = {w.T}")
+
+
+	# Via Closed-form solution
+	y = y.reshape(4,1)
+	w = inv(X.T @ X) @ X.T @ y
+	print( w )
+
 
 	# Plot cost trajectory
 	plt.figure()
