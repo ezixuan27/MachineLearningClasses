@@ -13,6 +13,8 @@ class FlyingShip(space):
 		self.plane = self.load_mesh('airplane.glb')
 		self.plane.setScale(2)
 		self.plane.setPos(0, 5, 0)
+		self.plane.set_p(90) # if your plane is rotated call this
+		
 
 		# Define flight path
 		self.start_pos = np.array([0, 5, 0], dtype=float)
