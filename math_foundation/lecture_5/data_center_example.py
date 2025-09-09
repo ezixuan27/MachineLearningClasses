@@ -27,22 +27,20 @@ plt.figure(figsize=(10, 5))
 def plot_dots(img_id, label, X):
 	plt.subplot(1, 2, img_id)
 	plt.scatter(X[:, 0], X[:, 1], color='blue', s=80, label=label)
-
 	"""Helper to draw x and y axes"""
 	plt.axhline(0, color='black', linewidth=1.2)
 	plt.axvline(0, color='black', linewidth=1.2)
 	plt.xlim(-8, 8)
 	plt.ylim(-8, 8)
 	plt.grid(True, linestyle='--', linewidth=0.7)
-
+	#
 	plt.title(label)
 	plt.xlabel("x")
 	plt.ylabel("y")
 	plt.legend()
 
-plot_dots1, "Original Points", X)
-plot_dots1, "Centered Points", X_centered)
-
+plot_dots(1, "Original Points", X)
+plot_dots(2, "Centered Points", X_centered)
 plt.tight_layout()
 plt.show()
 
