@@ -33,7 +33,7 @@ class point_cloud():
 			Σ = np.array([	[1, 0, 0.3],
 							[0, 2, 0],
 							[0.3, 0, 0.5]])
-			self.X = np.random.multivariate_normal(μ, Σ, n)
+			X = np.random.multivariate_normal(μ, Σ, n)
 
 		self.X = X
 		self.n = self.X.shape[0]
