@@ -7,10 +7,13 @@ class point_interpolation(space):
 		space.__init__(self)
 		self.total_time_elapsed = 0
 
-		self.p = point([1,1,1])
-		self.start = self.p.pos()
-		self.end = np.array([[-2],[0],[1]])
-		self.direction = self.end - self.p.pos()
+		self.start = np.array([[0],[2],[0.5]], dtype=float)
+		self.end = np.array([[1],[-2],[0.5]], dtype=float)
+
+		self.p = self.load_mesh('Luffy.glb')
+		self.p.setPos(*self.start)
+
+		self.direction = self.end - self.start
 		self.accept("m", self.initialize_move)
 
 	def initialize_move(self):
@@ -26,7 +29,7 @@ class point_interpolation(space):
 		if pcnt > 1: return Task.done
 
 		new_loc = self.start + self.direction*pcnt
-		self.p.redraw(new_loc)
+		self.p.set_pos(*new_loc)
 		return Task.cont		
 
 app = point_interpolation()
